@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SENAC_TEST.MainPage">
+
+    <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="1" Grid.Column="0" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="2" Grid.Column="0" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="0" Grid.Column="1" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="1" Grid.Column="1" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="2" Grid.Column="1" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="0" Grid.Column="2" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="1" Grid.Column="2" Clicked="OnButtonClicked"/>
+            <Button Grid.Row="2" Grid.Column="2" Clicked="OnButtonClicked"/>
+        </Grid>
+        
+    </VerticalStackLayout>
+
+</ContentPage>
