@@ -16,12 +16,8 @@
             if (button.Text == null)
             {
                 button.Text = isPlayerOneTurn ? "X" : "O";
-               
-                int row = Grid.GetRow(button);
-                int column = Grid.GetColumn(button);
-                tabuleiro[row, column] = button.Text;
+                AtualizarTabuleiro(button, button.Text);
 
-                isPlayerOneTurn = !isPlayerOneTurn;
 
                 string resultadoInteracao = VerificarVencedor();
                 if (resultadoInteracao != "Jogo Continua!")
@@ -29,7 +25,16 @@
                     DisplayAlert("Fim de Jogo", resultadoInteracao, "OK");
                     ReiniciarJogo(); 
                 }
+
+                isPlayerOneTurn = !isPlayerOneTurn;
             }
+        }
+
+        private void AtualizarTabuleiro(Button button, string valor)
+        {
+            int row = Grid.GetRow(button);
+            int column = Grid.GetColumn(button);
+            tabuleiro[row, column] = valor;
         }
 
         private void ReiniciarJogo()
@@ -46,45 +51,45 @@
         }
 
         private string VerificarVencedor()
-        {            
-            foreach (var child in TabuleiroJogo.Children)
-            {
-                if (child is Button button)
-                {
-                    int row = TabuleiroJogo.GetRow(button);
-                    int column = TabuleiroJogo.GetColumn(button);
-                    tabuleiro[row, column] = button.Text;
-                }
-            }
-
+        {
+            // Verifica linhas e colunas.
             for (int i = 0; i < 3; i++)
-            {                
+            {
                 if (!string.IsNullOrEmpty(tabuleiro[i, 0]) &&
-                    tabuleiro[i, 0] == tabuleiro[i, 1] && tabuleiro[i, 1] == tabuleiro[i, 2])
+                    tabuleiro[i, 0] == tabuleiro[i, 1] &&
+                    tabuleiro[i, 1] == tabuleiro[i, 2])
                 {
-                    return tabuleiro[i, 0] + " venceu!";
+                    return $"{tabuleiro[i, 0]} venceu!";
                 }
                 if (!string.IsNullOrEmpty(tabuleiro[0, i]) &&
-                    tabuleiro[0, i] == tabuleiro[1, i] && tabuleiro[1, i] == tabuleiro[2, i])
+                    tabuleiro[0, i] == tabuleiro[1, i] &&
+                    tabuleiro[1, i] == tabuleiro[2, i])
                 {
-                    return tabuleiro[0, i] + " venceu!";
+                    return $"{tabuleiro[0, i]} venceu!";
                 }
             }
-            if (tabuleiro[0, 0] == tabuleiro[1, 1] && tabuleiro[1, 1] == tabuleiro[2, 2])
+
+            // Verifica diagonais.
+            if (!string.IsNullOrEmpty(tabuleiro[0, 0]) &&
+                tabuleiro[0, 0] == tabuleiro[1, 1] &&
+                tabuleiro[1, 1] == tabuleiro[2, 2])
             {
-                return tabuleiro[0, 0] + " venceu!";
+                return $"{tabuleiro[0, 0]} venceu!";
             }
-            if (tabuleiro[0, 2] == tabuleiro[1, 1] && tabuleiro[1, 1] == tabuleiro[2, 0])
+            if (!string.IsNullOrEmpty(tabuleiro[0, 2]) &&
+                tabuleiro[0, 2] == tabuleiro[1, 1] &&
+                tabuleiro[1, 1] == tabuleiro[2, 0])
             {
-                return tabuleiro[0, 2] + " venceu!";
+                return $"{tabuleiro[0, 2]} venceu!";
             }
 
+            // Verifica empate.
             bool empate = true;
             for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++) 
+                for (int j = 0; j < 3; j++)
                 {
-                    if (string.IsNullOrEmpty(tabuleiro[i, j])) 
+                    if (string.IsNullOrEmpty(tabuleiro[i, j]))
                     {
                         empate = false;
                     }
