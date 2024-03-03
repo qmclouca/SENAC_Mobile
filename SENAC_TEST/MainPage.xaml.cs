@@ -16,19 +16,56 @@
             if (button.Text == null)
             {
                 button.Text = isPlayerOneTurn ? "X" : "O";
+               
+                int row = Grid.GetRow(button);
+                int column = Grid.GetColumn(button);
+                tabuleiro[row, column] = button.Text;
+
                 isPlayerOneTurn = !isPlayerOneTurn;
+
+                string resultadoInteracao = VerificarVencedor();
+                if (resultadoInteracao != "Jogo Continua!")
+                {
+                    DisplayAlert("Fim de Jogo", resultadoInteracao, "OK");
+                    ReiniciarJogo(); 
+                }
+            }
+        }
+
+        private void ReiniciarJogo()
+        {
+            isPlayerOneTurn = true;
+            tabuleiro = new string[3, 3];
+            foreach (var child in TabuleiroJogo.Children)
+            {
+                if (child is Button button)
+                {
+                    button.Text = null;
+                }
             }
         }
 
         private string VerificarVencedor()
-        {
-            for (int i = 0; i < 3; i++)
+        {            
+            foreach (var child in TabuleiroJogo.Children)
             {
-                if (tabuleiro[i, 0] == tabuleiro[i, 1] && tabuleiro[i, 1] == tabuleiro[i, 2])
+                if (child is Button button)
+                {
+                    int row = TabuleiroJogo.GetRow(button);
+                    int column = TabuleiroJogo.GetColumn(button);
+                    tabuleiro[row, column] = button.Text;
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {                
+                if (!string.IsNullOrEmpty(tabuleiro[i, 0]) &&
+                    tabuleiro[i, 0] == tabuleiro[i, 1] && tabuleiro[i, 1] == tabuleiro[i, 2])
                 {
                     return tabuleiro[i, 0] + " venceu!";
                 }
-                if (tabuleiro[0, i] == tabuleiro[1, i] && tabuleiro[1, i] == tabuleiro[2, i])
+                if (!string.IsNullOrEmpty(tabuleiro[0, i]) &&
+                    tabuleiro[0, i] == tabuleiro[1, i] && tabuleiro[1, i] == tabuleiro[2, i])
                 {
                     return tabuleiro[0, i] + " venceu!";
                 }
@@ -43,18 +80,18 @@
             }
 
             bool empate = true;
-            for (int i = 0; i<3; i++) 
+            for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; i<3; i++)
+                for (int j = 0; j < 3; j++) 
                 {
-                    if (tabuleiro[i,j] == null)
+                    if (string.IsNullOrEmpty(tabuleiro[i, j])) 
                     {
                         empate = false;
                     }
                 }
             }
 
-            if(empate)
+            if (empate)
             {
                 return "Empate!";
             }

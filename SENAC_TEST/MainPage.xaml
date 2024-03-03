@@ -4,7 +4,7 @@
              x:Class="SENAC_TEST.MainPage">
 
     <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
-        <Grid>
+        <Grid x:Name="TabuleiroJogo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
