@@ -13,7 +13,7 @@
         private void OnButtonClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
-            if (button.Text == null)
+            if (button!.Text == null)
             {
                 button.Text = isPlayerOneTurn ? "X" : "O";
                 AtualizarTabuleiro(button, button.Text);
